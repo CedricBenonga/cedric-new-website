@@ -36,7 +36,6 @@ itsdangerous==2.1.2
 jinja2-mjml==0.1.0
 jinja2-tools==1.0.7
 mjml-python==1.0.0
-numpy==1.24.2
 outcome==1.2.0
 packaging==23.1
 pandas==2.0.0
