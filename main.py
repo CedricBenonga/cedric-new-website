@@ -17,10 +17,11 @@ from flask_gravatar import Gravatar
 from forms import CreatePostForm, RegisterForm, LoginForm
 from functools import wraps
 import smtplib
+import os  # for environment variables
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 ckeditor = CKEditor(app)
 Bootstrap5(app)
 
@@ -244,9 +245,10 @@ def contact():
         phone = request.form["phone"]
         message = request.form["message"]
 
-        # send an email
-        my_mail = "bicprogramming@gmail.com"
-        my_password = "yderlbqimxvcqcna"  # taken from gmail setting - security - App password ###
+        # send an email - email and password set as environment variables.
+        # NB: No need to put single or double quote around the NAME(S) or value(s) in environment variables
+        my_mail = os.environ.get('MY_EMAIL')
+        my_password = os.environ.get('MY_PASSWORD')  # taken from gmail setting - security - App password ###
         # You can't use your gmail account password.
 
         with smtplib.SMTP("smtp.gmail.com") as connection:
