@@ -37,12 +37,12 @@ gravatar = Gravatar(
 )
 
 # CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blogs.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DB_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 
-##CONFIGURE TABLES
+# # CONFIGURE TABLES
 
 class BlogPost(db.Model):
     __tablename__ = "blog_posts"
@@ -336,3 +336,10 @@ def confirm_delete(post_id):
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+# # # # # # Deployment in render.com # # # # # #
+# - Procfile (with capital P) needs to be created in the same level with main.py
+# - In the Procfile only put this:   web: gunicorn main:app
+# - make sure you install gunicorn and it's in the requirements.txt like so:   gunicorn==20.1.0
+# - then commit and push your code again to github.
+# - render.com may ask you to remove unnecessary requirements in the requirements.txt (in which case it will failed to build). Then just remove, commit again, and try.
